@@ -33,7 +33,6 @@ public class Roadmap {
     @Column(name = "roadmap_level")
     private String roadmapLevel;
 
-    @Lob
     @Column(name = "structure_json", columnDefinition = "TEXT")
     @Basic(fetch = FetchType.EAGER)
     private String structureJson;
