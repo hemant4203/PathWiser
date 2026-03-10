@@ -2,7 +2,7 @@ import apiClient from './apiClient';
 
 export const fetchRoadmaps = async (page = 0) => {
   try {
-    const response = await apiClient.get(`/roadmaps?page=${page}&size=10`);
+    const response = await apiClient.get(`api/roadmaps?page=${page}&size=10`);
     return response.data;
   } catch (error) {
     console.error("Error fetching roadmaps:", error);
@@ -14,7 +14,7 @@ export const getAllRoadmaps = fetchRoadmaps;
 
 export const compareRoadmaps = async (path1Id, path2Id) => {
   try {
-    const response = await apiClient.get(`/roadmaps/compare?id1=${path1Id}&id2=${path2Id}`);
+    const response = await apiClient.get(`api/roadmaps/compare?id1=${path1Id}&id2=${path2Id}`);
     return { data: response.data };
   } catch (error) {
     console.error("Error comparing roadmaps:", error);
