@@ -1,5 +1,4 @@
 import apiClient from './apiClient';
-import React from 'react';
 
 export const fetchRoadmaps = async (page = 0) => {
   try {
@@ -25,11 +24,10 @@ export const compareRoadmaps = async (path1Id, path2Id) => {
 
 export const fetchRoadmapDetail = async (id) => {
   try {
-    const response = await apiClient.get(`/roadmaps/${id}`);
+    const response = await apiClient.get(`api/roadmaps/${id}`);
     return { data: response.data };
   } catch (error) {
     console.error(`Error fetching details for roadmap ${id}:`, error);
     throw error;
   }
-
 };
