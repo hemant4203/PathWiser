@@ -1,4 +1,4 @@
-import { react, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { compareRoadmaps } from "../../api/roadmapApi";
 
@@ -111,3 +111,4 @@ export default function ComparePage() {
   );
 
 }
+
