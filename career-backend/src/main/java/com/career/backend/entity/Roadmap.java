@@ -33,7 +33,7 @@ public class Roadmap {
     @Column(name = "roadmap_level")
     private String roadmapLevel;
 
-    @Column(name = "structure_json", columnDefinition = "jsonb")
+    @Column(name = "structure_json", columnDefinition = "TEXT")
     @Basic(fetch = FetchType.EAGER)
     private String structureJson;
 
@@ -62,4 +62,5 @@ public class Roadmap {
     @Column(name = "highlight_tags")
     private String highlightTags;
 }
+
 
