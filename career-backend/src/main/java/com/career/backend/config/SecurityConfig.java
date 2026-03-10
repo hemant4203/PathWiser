@@ -50,6 +50,8 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
+            	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            	
                 // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
 
@@ -148,7 +150,7 @@ public class SecurityConfig {
         ));
 
         configuration.setAllowedMethods(List.of(
-                "GET","POST","PUT","DELETE","OPTIONS"
+                "GET","POST","PUT","PATCH","DELETE","OPTIONS"
         ));
 
         configuration.setAllowedHeaders(List.of("*"));
