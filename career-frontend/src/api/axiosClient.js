@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://pathwiser-backend.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
@@ -68,7 +68,7 @@ axiosClient.interceptors.response.use(
 
         // IMPORTANT: use plain axios to avoid interceptor loop
         const response = await axios.post(
-          "http://localhost:8080/api/auth/refresh",
+          "https://pathwiser-backend.onrender.com/api/auth/refresh",
           { refreshToken }
         );
 

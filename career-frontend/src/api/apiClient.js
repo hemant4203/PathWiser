@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiClient = axios.create({ baseURL: 'http://localhost:8080/api' });
+const apiClient = axios.create({ baseURL: "https://pathwiser-backend.onrender.com" });
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -32,7 +32,7 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
       const refreshToken = localStorage.getItem('refreshToken');
       try {
-        const res = await axios.post('http://localhost:8080/api/auth/refresh', { refreshToken });
+        const res = await axios.post('https://pathwiser-backend.onrender.com/api/auth/refresh', { refreshToken });
         const { accessToken, refreshToken: newRefresh } = res.data;
         window.accessToken = accessToken;
         localStorage.setItem('refreshToken', newRefresh);
