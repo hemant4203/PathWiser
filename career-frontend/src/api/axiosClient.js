@@ -1,4 +1,5 @@
 import axios from "axios";
+import React from 'react';
 
 const BASE_URL = "https://pathwiser-backend.onrender.com";
 
@@ -135,5 +136,6 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 
 export default axiosClient;
