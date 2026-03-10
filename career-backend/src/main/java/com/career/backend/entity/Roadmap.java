@@ -2,8 +2,10 @@ package com.career.backend.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +34,8 @@ public class Roadmap {
     private String roadmapLevel;
 
     @Lob
-    @Column(name = "structure_json")
+    @Column(name = "structure_json", columnDefinition = "TEXT")
+    @Basic(fetch = FetchType.EAGER)
     private String structureJson;
 
     // 🔽 NEW FIELDS
