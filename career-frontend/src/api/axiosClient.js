@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const BASE_URL = "https://pathwiser-backend.onrender.com";
+
 const axiosClient = axios.create({
-  baseURL: "https://pathwiser-backend.onrender.com",
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 30000, // helps during Render cold start
 });
 
 let isRefreshing = false;
@@ -66,10 +69,11 @@ axiosClient.interceptors.response.use(
           throw new Error("No refresh token");
         }
 
-        // IMPORTANT: use plain axios to avoid interceptor loop
+        // refresh request
         const response = await axios.post(
-          "https://pathwiser-backend.onrender.com/api/auth/refresh",
-          { refreshToken }
+          `${BASE_URL}/api/auth/refresh`,
+          { refreshToken },
+          { timeout: 30000 }
         );
 
         const newAccessToken = response.data.accessToken;
@@ -86,17 +90,42 @@ axiosClient.interceptors.response.use(
 
       } catch (refreshError) {
 
-        processQueue(refreshError, null);
+        // Retry once after 3 seconds (Render cold start fix)
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
 
-        // Hard logout
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("role");
-        localStorage.removeItem("username");
+          const retryResponse = await axios.post(
+            `${BASE_URL}/api/auth/refresh`,
+            { refreshToken },
+            { timeout: 30000 }
+          );
 
-        window.location.href = "/login";
+          const newAccessToken = retryResponse.data.accessToken;
+          const newRefreshToken = retryResponse.data.refreshToken;
 
-        return Promise.reject(refreshError);
+          localStorage.setItem("accessToken", newAccessToken);
+          localStorage.setItem("refreshToken", newRefreshToken);
+
+          processQueue(null, newAccessToken);
+
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          return axiosClient(originalRequest);
+
+        } catch (retryError) {
+
+          processQueue(retryError, null);
+
+          // Hard logout
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("role");
+          localStorage.removeItem("username");
+
+          window.location.href = "/login";
+
+          return Promise.reject(retryError);
+        }
 
       } finally {
         isRefreshing = false;
