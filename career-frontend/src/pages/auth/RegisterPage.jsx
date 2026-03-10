@@ -35,7 +35,7 @@ export default function RegisterPage() {
     setError('');
     setLoading(true);
     try {
-      await axios.post('http://localhost:8080/api/auth/register', formData);
+      await axios.post('https://pathwiser-backend.onrender.com/api/auth/register', formData);
       navigate('/login');
     } catch (err) {
       const serverMessage = err.response?.data?.message || err.response?.data;

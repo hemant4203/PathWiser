@@ -17,7 +17,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/login', formData);
+      const res = await axios.post('https://pathwiser-backend.onrender.com/api/auth/login', formData);
 
       // Extract token first
       const token = res.data.accessToken || res.data.token;
