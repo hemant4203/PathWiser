@@ -6,6 +6,8 @@ COPY . .
 
 RUN mvn clean package -DskipTests
 
+RUN cp target/*.jar app.jar
+
 EXPOSE 8080
 
-CMD ["java","-jar","target/*.jar"]
+CMD ["java","-jar","app.jar"]
