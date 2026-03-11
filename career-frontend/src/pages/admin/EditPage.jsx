@@ -27,10 +27,10 @@ export default function EditRoadmap() {
         setTitle(data.title);
         setLevel(data.level || "Beginner");
         setDuration(data.estimatedDurationMonths || 0);
-        setSalaryMin(data.salaryMin || 0);
-        setSalaryMax(data.salaryMax || 0);
-        setSkills(data.requiredSkills || "");
-        setTags(data.highlightTags || "");
+        setSalaryMin(data.salary_min || 0);
+        setSalaryMax(data.salary_max || 0);
+        setSkills(data.required_skills || "");
+        setTags(data.highlight_tags || "");
         setModules(typeof data.structureJson === 'string' ? JSON.parse(data.structureJson) : data.structureJson || []);
         setLoading(false);
       } catch (err) {
@@ -125,6 +125,25 @@ export default function EditRoadmap() {
               <div className="col-6"><label className="form-label small fw-bold">Min Salary</label><input type="number" className="form-control" value={salaryMin} onChange={(e) => setSalaryMin(e.target.value)} /></div>
               <div className="col-6"><label className="form-label small fw-bold">Max Salary</label><input type="number" className="form-control" value={salaryMax} onChange={(e) => setSalaryMax(e.target.value)} /></div>
             </div>
+<div className="mb-3">
+  <label className="form-label small fw-bold">Required Skills</label>
+  <input
+    type="text"
+    className="form-control"
+    value={skills}
+    onChange={(e) => setSkills(e.target.value)}
+  />
+</div>
+
+<div className="mb-3">
+  <label className="form-label small fw-bold">Highlight Tags</label>
+  <input
+    type="text"
+    className="form-control"
+    value={tags}
+    onChange={(e) => setTags(e.target.value)}
+  />
+</div>
           </div>
         </div>
         <div className="col-lg-8">
