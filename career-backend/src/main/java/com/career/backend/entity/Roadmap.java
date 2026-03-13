@@ -38,8 +38,7 @@ public class Roadmap {
     @Column(name = "roadmap_level")
     private String roadmapLevel;
 
-    @Lob
-    @Column(name = "structure_json")
+    @Column(name = "structure_json", columnDefinition = "TEXT")
     private String structureJson;
 
     // 🔽 NEW FIELDS
