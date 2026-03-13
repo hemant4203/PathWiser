@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
 import { useAuth } from '../../context/useAuth';
+import { toast } from "react-toastify";
 
 export default function LearningPage() {
 
@@ -14,7 +15,7 @@ export default function LearningPage() {
 
   const fetchContent = async () => {
     try {
-      const res = await axiosClient.get('/api/user/roadmap/active');
+      const res = await axiosClient.get(`/api/user/roadmap/${roadmapId}`);
       setRawData(res.data);
     } catch (err) {
       console.error("Fetch Error:", err.response?.status);
@@ -88,8 +89,10 @@ export default function LearningPage() {
       if (pageData.nextTopicId) {
         navigate(`/learning/${roadmapId}/${pageData.nextTopicId}`);
       } else {
-        alert("🎉 Roadmap Completed!");
-        navigate('/my-roadmap');
+        toast.success("Roadmap completed! Start your assessment.");
+        setTimeout(() => {
+          navigate(`/assessment/${roadmapId}`);
+        }, 1200);
       }
 
     } catch (err) {

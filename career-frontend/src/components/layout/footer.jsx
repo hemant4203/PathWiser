@@ -1,4 +1,3 @@
-import React from 'react';
 export default function Footer() {
   return (
     <footer className="bg-white border-top py-4 mt-auto">
@@ -10,6 +9,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-
 }
-

@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from 'react';
 
 const BASE_URL = "https://pathwiser-backend.onrender.com";
 
@@ -90,11 +89,13 @@ axiosClient.interceptors.response.use(
         return axiosClient(originalRequest);
 
       } catch (refreshError) {
+        console.log(refreshError);
 
         // Retry once after 3 seconds (Render cold start fix)
         try {
           await new Promise((resolve) => setTimeout(resolve, 3000));
 
+          const refreshToken = localStorage.getItem("refreshToken");
           const retryResponse = await axios.post(
             `${BASE_URL}/api/auth/refresh`,
             { refreshToken },
@@ -136,6 +137,5 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export default axiosClient;

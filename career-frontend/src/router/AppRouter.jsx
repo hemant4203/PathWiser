@@ -13,8 +13,11 @@ import DetailPage from '../pages/public/DetailPage';
 import RegisterPage from '../pages/auth/RegisterPage';
 import Bookmarks from '../pages/bookmark/BookmarkPage';
 import MyRoadmapPage from '../pages/roadmap/MyRoadmap';
+import MyRoadmapDashboard from '../pages/roadmap/MyRoadmapDashboard';
 import LearningPage from '../pages/roadmap/LearningPage';
 import ProfilePage from '../pages/profile/ProfilePage';
+import AssessmentPage from '../pages/assessment/AssessmentPage';
+import CertificatePage from '../pages/certificate/CertificatePage';
 
 // Admin Page Imports
 import AdminLayout from '../pages/admin/AdminLayout';
@@ -23,6 +26,7 @@ import UserManagement from '../pages/admin/UserManagement';
 import RoadmapManagement from '../pages/admin/RoadmapManagement';
 import CreateRoadmap from '../pages/admin/CreateRoadmap';
 import EditRoadmap from '../pages/admin/EditPage';
+import AdminAssessments from '../pages/admin/AdminAssessmentPage';
 // --- AUTHORIZATION GUARDS ---
 
 const UserRoute = ({ children }) => {
@@ -106,9 +110,12 @@ function AppRouter() {
 
             {/* --- USER ONLY PROTECTED --- */}
             <Route path="/bookmark" element={<Bookmarks />} />
-            <Route path="/my-roadmap/:id?" element={<UserRoute><MyRoadmapPage /></UserRoute>} />
+            <Route path="/my-roadmap" element={<UserRoute><MyRoadmapPage /></UserRoute>} />
+            <Route path="/my-roadmap/dashboard/:roadmapId" element={<UserRoute><MyRoadmapDashboard /></UserRoute>} />
             <Route path="/learning/:roadmapId/:subtopicId" element={<UserRoute><LearningPage /></UserRoute>} />
             <Route path="/profile" element={<UserRoute><ProfilePage /></UserRoute>} />
+            <Route path="/assessment/:roadmapId" element={<UserRoute><AssessmentPage /></UserRoute>} />
+            <Route path="/certificate/:roadmapId" element={<UserRoute><CertificatePage /></UserRoute>} />
             
           </Route>
 
@@ -126,6 +133,7 @@ function AppRouter() {
             <Route path="roadmaps" element={<RoadmapManagement />} />
             <Route path="/admin/roadmaps/create" element={<CreateRoadmap />} />
             <Route path="/admin/roadmaps/edit/:id" element={<EditRoadmap />} />
+            <Route path="assessments" element={<AdminAssessments />} />
             <Route path="settings" element={<div className="p-4"><h3>System Settings</h3></div>} />
           </Route>
 

@@ -24,6 +24,7 @@ export default function AdminLayout() {
     { name: 'Dashboard', path: '/admin/dashboard', icon: 'bi-grid-fill' },
     { name: 'Users', path: '/admin/users', icon: 'bi-people-fill' },
     { name: 'Roadmaps', path: '/admin/roadmaps', icon: 'bi-map-fill' },
+    { name: 'Assessments', path: '/admin/assessments', icon: 'bi-clipboard-check-fill' },
     { name: 'Settings', path: '/admin/settings', icon: 'bi-gear-fill' },
   ];
 

@@ -57,7 +57,7 @@ export default function ProfilePage() {
     </div>
   );
 
-  const { 
+    const { 
     username, 
     activeRoadmapTitle, 
     completedRoadmaps, 
@@ -65,17 +65,18 @@ export default function ProfilePage() {
     progressPercentage, 
     totalSubtopics, 
     recentCompletedSubtopics = [],
-    completedRoadmapTitles = [] 
+    completedRoadmapsList = [] 
   } = profile;
-
   const safeProgress = progressPercentage || 0;
   const safeTotal = totalSubtopics || 0;
   const safeCompletedCount = completedRoadmaps || 0;
 
-  const displayCompletedRoadmaps = (completedRoadmapTitles?.length || 0) > 0
-  ? completedRoadmapTitles
-  : Array.from({ length: safeCompletedCount || 0 }, (_, i) => `Mastered Path #${i + 1}`);
-
+  const displayCompletedRoadmaps = completedRoadmapsList?.length > 0
+    ? completedRoadmapsList
+    : Array.from({ length: safeCompletedCount || 0 }, (_, i) => ({
+        roadmapId: null,
+        title: `Mastered Path #${i + 1}`
+      }));
   return (
     <div className="bg-light min-vh-100 pb-5">
       <div className="bg-primary bg-gradient position-relative" style={{ height: '180px' }}>
@@ -122,12 +123,12 @@ export default function ProfilePage() {
               </h6>
               {displayCompletedRoadmaps.length > 0 ? (
                 <div className="d-flex flex-column gap-2">
-                  {displayCompletedRoadmaps.map((title, i) => (
+                  {displayCompletedRoadmaps.map((roadmp, i) => (
                     <div key={i} className="bg-light rounded-3 p-3 d-flex align-items-center border border-light transition-all" style={{ cursor: 'default' }}>
                       <div className="bg-warning bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center me-3" style={{ width: '35px', height: '35px', minWidth: '35px' }}>
                         <i className="bi bi-trophy-fill text-warning"></i>
                       </div>
-                      <span className="fw-bold text-dark small">{title}</span>
+                      <span className="fw-bold text-dark small">{roadmp.title}</span>
                     </div>
                   ))}
                 </div>
@@ -138,6 +139,50 @@ export default function ProfilePage() {
                 </div>
               )}
             </div>
+            <div className="card border-0 shadow-sm rounded-4 p-4 bg-white mt-4">
+            <h6 className="fw-bold mb-3 text-uppercase small text-muted d-flex align-items-center">
+              <i className="bi bi-patch-check-fill text-primary me-2 fs-5"></i> Certifications
+            </h6>
+
+            {displayCompletedRoadmaps.length > 0 ? (
+              <div className="d-flex flex-column gap-2">
+                {displayCompletedRoadmaps.map((roadmap, i) => (
+                  <div
+                    key={i}
+                    className="bg-light rounded-3 p-3 d-flex align-items-center justify-content-between border"
+                  >
+                    <div className="d-flex align-items-center">
+                      <div
+                        className="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style={{ width: '35px', height: '35px', minWidth: '35px' }}
+                      >
+                        <i className="bi bi-patch-check-fill"></i>
+                      </div>
+
+                      <div>
+                        <span className="fw-bold text-dark small d-block">{roadmap.title}</span>
+                        <small className="text-muted">Certified</small>
+                      </div>
+                    </div>
+
+                    <button
+                      className="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3"
+                      onClick={() => roadmap.roadmapId && navigate(`/certificate/${roadmap.roadmapId}`)}
+                    >
+                      View
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-3">
+                <div className="fs-1 opacity-25 mb-2">🎓</div>
+                <small className="text-muted">
+                  Complete a roadmap to earn your first certificate!
+                </small>
+              </div>
+            )}
+          </div>
           </div>
 
           <div className="col-lg-8">

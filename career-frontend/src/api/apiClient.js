@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from 'react';
 
 const BASE_URL = "https://pathwiser-backend.onrender.com";
 
@@ -66,6 +65,7 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest);
 
       } catch (err) {
+        console.log(err);
 
         // retry once after 3 seconds (Render wake-up)
         try {
@@ -107,6 +107,5 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export default apiClient;
