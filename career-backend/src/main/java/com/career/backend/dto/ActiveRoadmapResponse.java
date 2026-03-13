@@ -1,6 +1,10 @@
 package com.career.backend.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.career.backend.model.RoadmapStatus;
+import com.career.backend.model.SubmissionStatus;
 
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +28,13 @@ public class ActiveRoadmapResponse {
     private ProgressResponse progress;
 
     private List<String> completedSubtopicIds;
+    
+    private RoadmapStatus status;
+    
+    private LocalDateTime completedAt;
+    
+    private SubmissionStatus submissionStatus;
+    
+    private String reviewComment;
+
 }

@@ -2,21 +2,26 @@ package com.career.backend.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "roadmap")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Roadmap {
 
     @Id
@@ -33,8 +38,8 @@ public class Roadmap {
     @Column(name = "roadmap_level")
     private String roadmapLevel;
 
-    @Column(name = "structure_json", columnDefinition = "TEXT")
-    @Basic(fetch = FetchType.EAGER)
+    @Lob
+    @Column(name = "structure_json")
     private String structureJson;
 
     // 🔽 NEW FIELDS
@@ -61,6 +66,5 @@ public class Roadmap {
 
     @Column(name = "highlight_tags")
     private String highlightTags;
+    
 }
-
-

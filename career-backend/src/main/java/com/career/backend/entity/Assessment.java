@@ -1,13 +1,12 @@
 package com.career.backend.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -18,33 +17,45 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "user_progress")
+@Table(name = "assessments")
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"user","roadmap"})
-public class UserProgress {
+@ToString(exclude = {"roadmap"})
+public class Assessment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_progress_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "assessment_seq")
     @SequenceGenerator(
-            name = "user_progress_seq",
-            sequenceName = "user_progress_sequence",
+            name = "assessment_seq",
+            sequenceName = "assessment_sequence",
             allocationSize = 1
     )
     private Long id;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "roadmap_id", nullable = false)
     private Roadmap roadmap;
 
     @Column(nullable = false)
-    private String subtopicId;
+    private String title;
 
-    private LocalDateTime completedAt;
+    @Lob
+    private String description;
+
+    @Column(name = "REQUIRES_GITHUB")
+    private boolean requiresGithub;
+
+    @Column(name = "REQUIRES_LIVE_LINK")
+    private boolean requiresLiveLink;
+
+    @Column(name = "REQUIRES_EXTERNAL_LINK")
+    private boolean requiresExternalLink;
+
+    @Column(name = "REQUIRES_FILE")
+    private boolean requiresFile;
+
+    @Column(name = "REQUIRES_VIDEO_LINK")
+    private boolean requiresVideoLink;
 }

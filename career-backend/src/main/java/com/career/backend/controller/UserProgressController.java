@@ -1,5 +1,7 @@
 package com.career.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -74,6 +76,11 @@ public class UserProgressController {
         return userProgressService.getActiveRoadmap();
     }
     
+    @GetMapping("/roadmap/{roadmapId}")
+    public ActiveRoadmapResponse getRoadmapById(@PathVariable Long roadmapId) {
+        return userProgressService.getRoadmapById(roadmapId);
+    }
+    
     @GetMapping("/profile")
     public ResponseEntity<UserProfileDto> getProfile(Authentication authentication) {
 
@@ -85,5 +92,10 @@ public class UserProgressController {
         UserProfileDto profile = userProgressService.getUserProfile(user);
 
         return ResponseEntity.ok(profile);
+    }
+    
+    @GetMapping("/roadmaps")
+    public List<ActiveRoadmapResponse> getUserRoadmaps() {
+        return userProgressService.getUserRoadmaps();
     }
 }

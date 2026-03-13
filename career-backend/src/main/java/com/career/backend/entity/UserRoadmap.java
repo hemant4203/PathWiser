@@ -2,8 +2,12 @@ package com.career.backend.entity;
 
 import java.time.LocalDateTime;
 
+import com.career.backend.model.RoadmapStatus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,14 +15,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "user_roadmaps")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)  // critical
+@ToString(exclude = {"user", "roadmap"}) 
 public class UserRoadmap {
 
     @Id
+    @EqualsAndHashCode.Include 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_roadmap_seq")
     @SequenceGenerator(
             name = "user_roadmap_seq",
@@ -38,4 +51,11 @@ public class UserRoadmap {
     private LocalDateTime startedAt;
 
     private LocalDateTime completedAt;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "\"status\"", nullable = false, length = 30)
+    private RoadmapStatus status = RoadmapStatus.IN_PROGRESS;
+    
+    @Column(name = "certificate_id", unique = true)
+    private String certificateId;
 }

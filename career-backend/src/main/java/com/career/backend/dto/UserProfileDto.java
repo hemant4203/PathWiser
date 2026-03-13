@@ -21,6 +21,6 @@ public class UserProfileDto {
 
     private List<String> recentCompletedSubtopics;
     
-    private List<String> completedRoadmapTitles;
+    private List<CompletedRoadmapDto> completedRoadmapsList;
 
 }

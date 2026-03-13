@@ -1,5 +1,7 @@
 package com.career.backend.service;
 
+import java.util.List;
+
 import com.career.backend.dto.ActiveRoadmapResponse;
 import com.career.backend.dto.ProgressResponse;
 import com.career.backend.dto.UserProfileDto;
@@ -16,4 +18,9 @@ public interface UserProgressService {
     ActiveRoadmapResponse getActiveRoadmap();
     
     public UserProfileDto getUserProfile(User user);
+    
+    public List<ActiveRoadmapResponse> getUserRoadmaps();
+    
+    ActiveRoadmapResponse getRoadmapById(Long roadmapId);
+    
 }

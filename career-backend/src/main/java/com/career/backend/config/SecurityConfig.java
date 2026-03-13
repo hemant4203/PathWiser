@@ -101,18 +101,29 @@ public class SecurityConfig {
                     UsernamePasswordAuthenticationFilter.class)
 
             .exceptionHandling(ex -> ex
-                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    response.setContentType("application/json");
-                    response.getWriter().write("""
-                        {
-                          "status": 403,
-                          "error": "Forbidden",
-                          "message": "You do not have permission to access this resource"
-                        }
-                    """);
-                })
-            );
+            	    .authenticationEntryPoint((request, response, authException) -> {
+            	        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            	        response.setContentType("application/json");
+            	        response.getWriter().write("""
+            	            {
+            	              "status": 401,
+            	              "error": "Unauthorized",
+            	              "message": "Authentication required"
+            	            }
+            	        """);
+            	    })
+            	    .accessDeniedHandler((request, response, accessDeniedException) -> {
+            	        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            	        response.setContentType("application/json");
+            	        response.getWriter().write("""
+            	            {
+            	              "status": 403,
+            	              "error": "Forbidden",
+            	              "message": "You do not have permission to access this resource"
+            	            }
+            	        """);
+            	    })
+            	);
 
         return http.build();
     }
