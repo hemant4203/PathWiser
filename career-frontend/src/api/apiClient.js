@@ -18,7 +18,7 @@ const processQueue = (error, token = null) => {
 };
 
 apiClient.interceptors.request.use((config) => {
-  const token = window.accessToken;
+  const token = localStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
@@ -50,12 +50,12 @@ apiClient.interceptors.response.use(
         const res = await axios.post(
           `${BASE_URL}/api/auth/refresh`,
           { refreshToken },
-          { timeout: 30000 }
+          { timeout: 45000 }
         );
 
         const { accessToken, refreshToken: newRefresh } = res.data;
 
-        window.accessToken = accessToken;
+        localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", newRefresh);
 
         processQueue(null, accessToken);
