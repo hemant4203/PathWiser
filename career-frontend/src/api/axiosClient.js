@@ -73,7 +73,7 @@ axiosClient.interceptors.response.use(
         const response = await axios.post(
           `${BASE_URL}/api/auth/refresh`,
           { refreshToken },
-          { timeout: 30000 }
+          { timeout: 100000 }
         );
 
         const newAccessToken = response.data.accessToken;
@@ -99,7 +99,7 @@ axiosClient.interceptors.response.use(
           const retryResponse = await axios.post(
             `${BASE_URL}/api/auth/refresh`,
             { refreshToken },
-            { timeout: 30000 }
+            { timeout: 100000 }
           );
 
           const newAccessToken = retryResponse.data.accessToken;
