@@ -21,4 +21,6 @@ public class ProgressResponse {
 
     private boolean completed;
 
+    private String username;
+
 }
