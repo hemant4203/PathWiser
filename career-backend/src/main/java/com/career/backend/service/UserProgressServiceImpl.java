@@ -329,6 +329,7 @@ public class UserProgressServiceImpl implements UserProgressService {
         return ActiveRoadmapResponse.builder()
                 .roadmapId(roadmap.getId())
                 .title(roadmap.getTitle())
+                .username(user.getUsername())
                 .level(roadmap.getRoadmapLevel())
                 .structureJson(roadmap.getStructureJson())
                 .estimatedDurationMonths(roadmap.getEstimatedDurationMonths())
