@@ -15,6 +15,7 @@ public class ActiveRoadmapResponse {
 
     private Long roadmapId;
     private String title;
+    private String username;
     private String level;
 
     private String structureJson;
@@ -28,13 +29,13 @@ public class ActiveRoadmapResponse {
     private ProgressResponse progress;
 
     private List<String> completedSubtopicIds;
-    
+
     private RoadmapStatus status;
-    
+
     private LocalDateTime completedAt;
-    
+
     private SubmissionStatus submissionStatus;
-    
+
     private String reviewComment;
 
 }
