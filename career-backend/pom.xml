@@ -22,7 +22,6 @@
 
 	<properties>
 		<java.version>21</java.version>
-		<!-- Force JJWT 0.12.6 — overrides any version Spring Boot BOM tries to pull in -->
 		<jjwt.version>0.12.6</jjwt.version>
 	</properties>
 
@@ -76,6 +75,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Jackson — required by JacksonConfig, RoadmapService, UserProgressServiceImpl -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<dependency>
