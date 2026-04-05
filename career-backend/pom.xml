@@ -11,7 +11,7 @@
 	<groupId>com.career</groupId>
 	<artifactId>career-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<n>career-backend</n>
+	<name>career-backend</name>
 	<description>Career Guidance Backend</description>
 	<url/>
 	<licenses><license/></licenses>
