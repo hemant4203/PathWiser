@@ -63,7 +63,7 @@ export default function CertificatePage() {
           </p>
 
           <h2 className="fw-bold mt-3 mb-4" style={{fontSize:"40px"}}>
-            {certificate.username || "PathWiser Learner"}
+            {username || "PathWiser Learner"}
           </h2>
 
           <p className="fs-5 text-muted">
