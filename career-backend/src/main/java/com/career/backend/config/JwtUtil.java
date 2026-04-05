@@ -1,53 +1,49 @@
 package com.career.backend.config;
 
-import java.security.Key;
 import java.util.Date;
+
+import javax.crypto.SecretKey;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
 
-	private final JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-	public JwtUtil(JwtProperties jwtProperties) {
-	    this.jwtProperties = jwtProperties;
-	}
+    public JwtUtil(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
-	private Key getSigningKey() {
-	    return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
-	}
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
+    }
 
-    // 🔐 ACCESS TOKEN
+    // ACCESS TOKEN
     public String generateAccessToken(String username, String role) {
-
         return Jwts.builder()
-                .setSubject(username)
+                .subject(username)
                 .claim("role", role)
                 .claim("type", "ACCESS")
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(
-                        System.currentTimeMillis() + jwtProperties.getAccessExpirationMs()))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessExpirationMs()))
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    // 🔄 REFRESH TOKEN
+    // REFRESH TOKEN
     public String generateRefreshToken(String username) {
-
         return Jwts.builder()
-                .setSubject(username)
+                .subject(username)
                 .claim("type", "REFRESH")
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(
-                        System.currentTimeMillis() + jwtProperties.getRefreshExpirationMs()))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + jwtProperties.getRefreshExpirationMs()))
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -67,16 +63,16 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-    
+
     public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
     private Claims getClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }
