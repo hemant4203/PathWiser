@@ -1,8 +1,7 @@
 package com.career.backend.config;
 
+import java.security.Key;
 import java.util.Date;
-
-import javax.crypto.SecretKey;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,7 @@ public class JwtUtil {
         this.jwtProperties = jwtProperties;
     }
 
-    private SecretKey getSigningKey() {
+    private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     }
 
@@ -70,7 +69,7 @@ public class JwtUtil {
 
     private Claims getClaims(String token) {
         return Jwts.parser()
-                .verifyWith(getSigningKey())
+                .verifyWith((javax.crypto.SecretKey) getSigningKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
