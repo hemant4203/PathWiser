@@ -74,7 +74,8 @@ public class AuthController {
         // 5️⃣ Return both tokens
         return ResponseEntity.ok(Map.of(
                 "accessToken", accessToken,
-                "refreshToken", refreshTokenString
+                "refreshToken", refreshTokenString,
+				"userName" , user.getUsername()
         ));
     }
     
@@ -143,7 +144,8 @@ public class AuthController {
         // 9️⃣ Return new tokens
         return ResponseEntity.ok(Map.of(
                 "accessToken", newAccessToken,
-                "refreshToken", newRefreshTokenString
+                "refreshToken", newRefreshTokenString,
+				"userName", user.getUsername()
         ));
     }
     
