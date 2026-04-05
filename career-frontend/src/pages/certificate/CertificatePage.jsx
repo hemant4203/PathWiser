@@ -5,6 +5,7 @@ import axiosClient from "../../api/axiosClient";
 export default function CertificatePage() {
   const { roadmapId } = useParams();
   const [certificate, setCertificate] = useState(null);
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
     const fetchCertificate = async () => {
